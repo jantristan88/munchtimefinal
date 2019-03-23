@@ -2,13 +2,14 @@
 
 {% block content_main %}
     <div class="flex_container">
+      <div>
         <form class="thumbnail"method="GET" action="/restaurants/">
         {% for category in categories %}
            {% csrf_token %}
           <button class="btn btn-lg">           
               <img class="btn btn-lg" src="{{category.image_url}}" alt=""/>
           </button>
-          <h4 class='instruction'> {{category.title}} ({{category.result_count}}) </h4>
+          <center><h4 class='instruction'> {{category.title}} ({{category.result_count}}) </h4></center>
           <h6 class='instruction'> {{category.desxcription}} </h6>
           <input type="hidden" name="collection_id" value={{category.collection_id}} />
           <input type="hidden" name="city" value="{{category.city}}" />
@@ -16,5 +17,6 @@
           <input type="hidden" name="longitude" value="{{category.lon}}" />
         {% endfor %}
         </form>
+      </div>
     </div>
 {% endblock content_main %}
