@@ -81,7 +81,7 @@ def user_login(request):
                                         'successfully')#response if authenticated and active
                     """
                     auth.login(request, user)
-                    return redirect('/')                    
+                    return redirect('dashboard')                    
                 else:
                     return HttpResponse('Disabled account') #response if authenticated and not active
             else:
@@ -407,7 +407,7 @@ def getChoices(request):
           if DEBUG:
             print("DEBUG:views.getChoices().bfr return")
   
-      return redirect('/') #send to index after filling out form and selecting a restaurant
+      return redirect('dashboard') #send to index after filling out form and selecting a restaurant
   else: #request.method == 'GET': Get save favorites
     if DEBUG:
       print("DEBUG:views.getChoices().GET")
