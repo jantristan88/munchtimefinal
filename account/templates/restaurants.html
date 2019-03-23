@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block add_links %}
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+ 
+    {% endblock add_links %}  
+    
+{% block content_main %}  
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+            {% for restaurant in restaurants %}                
+                <li data-target="#myCarousel" data-slide-to="0" class={% if forloop.first %}active{% endif %}></li>
+            {% endfor %}
+            </ol>
+            
+            <!-- Wrapper for slides -->
+            <div class="container">                              
+                    <div class="carousel-inner">
+                        {% for restaurant in restaurants %}
+                        <div class="carousel-item {% if forloop.first %}active{%endif%}">
+                            <form method="POST" action="/choices/">
+                            {% csrf_token %}
+                                <input type="hidden" name="name"            value="{{restaurant.name}}" />
+                                <input type="hidden" name="address"         value="{{restaurant.address}}" />
+                                <input type="hidden" name="cuisine"         value="{{restaurant.cuisine}}" />
+                                <input type="hidden" name="restaurant_id"   value="{{restaurant.restaurant_id}}" />
+                                <input type="hidden" name="user_rating"     value="{{restaurant.user_rating}}" />
+                                <input type="hidden" name="num_votes"       value="{{restaurant.num_votes}}" />
+                                <!-- <input type="hidden" name="image"           value="/img/default_restaurant.jpg" />         dont implement yet -->
+                                <div class="card">
+                                    <div class="card_header_container"> 
+                                      <img src="{% static "/img/default_restaurant.jpg" %}" alt="{{restaurant.name}}" width="100%" height="75%">
+                                      <button class="btn" ><img class="right_arrow"  /></button>
+                                    </div> <!-- container -->
+                                    <div class="card-body">
+                                      <div class="row dynamic_width_row">   
+                                          <div class="dynaimic_width_col">
+                                              <h4 class="card-title">{{ restaurant.name }}</h4>
+                                          </div>
+                                          <div class="text_box servive-block servive-block-blue">
+                                             <span>{{ restaurant.user_rating }} &frasl; {{ restaurant.num_votes }}<span/>
+                                          </div>
+                                      </div> <!-- row -->
+                                      <div class="row">
+                                          <p class="card-text">{{ restaurant.address }}</p>
+                                      </div>
+                                      <div class="row")
+                                          <p class="card-text">{{ restaurant.cuisine }}</p>
+                                      </div>
+                                    </div> <!-- body -->
+                                </div>  <!-- card -->
+                            </form>
+                        </div>  <!-- item -->
+                        {% endfor %}                  
+                    </div> <!-- inner -->
+    
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+
+            </div> <!-- container -->
+        </div> <!-- carousel -->
+{% endblock content_main %}  

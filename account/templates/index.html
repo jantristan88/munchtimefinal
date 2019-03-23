@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{%block content_main %}
+	<div class = "app_background flex_container">	
+		<h1>Welcome Muncher!</h1>
+		
+		<!-- #Get your Latitude and Longitude -->
+		<p class="instruction instruction_top">Enter Your Location</p>
+		
+		<form action="/categories" method="GET">
+			{% csrf_token %}
+			<div class='label'>
+				<p>Zipcode:</p>
+				<span>{{ form.zipcode }}</span>
+			</div>
+			
+			<h4 class="inset_text instruction"> OR </h4>
+			
+			<div class="label">
+				<p>Latitude:</p>
+				<span>{{ form.lat }}</span>
+			</div>
+			
+			<div class='label'>
+				<p>Longitude:</p>
+				<span>{{ form.lon }}</span>
+			</div>
+				
+			<div class="flex_container">
+				<button class="flex-align border_on_box"> Enter</button>
+			</div>
+		</form>
+		
+	</div>
+{%endblock content_main %}
